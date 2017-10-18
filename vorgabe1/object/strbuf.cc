@@ -15,4 +15,16 @@
 
 #include "object/strbuf.h"
 
+void Stringbuffer::put(char c){
+    index++;
+    if (index > 79 || c=='\n'){
+        flush();
+        index = 0;
+        buffer[index] = c;
+    }
+    else{
+        buffer[index] = c;
+    }
+}
+
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
