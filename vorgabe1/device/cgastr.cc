@@ -13,4 +13,8 @@
 
 #include "device/cgastr.h"
 
+void CGA_Stream::flush(){
+    print(buffer, lastWrittenIndex, 0x0f);
+    lastWrittenIndex=0;
+}
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
