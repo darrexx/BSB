@@ -17,7 +17,7 @@
 
 void Stringbuffer::put(char c){
     lastWrittenIndex++;
-    if (index > 79 || c=='\n'){
+    if (lastWrittenIndex > 79 || c=='\n'){
         flush();
         buffer[lastWrittenIndex] = c;
     }

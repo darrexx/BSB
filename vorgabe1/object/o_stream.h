@@ -21,12 +21,15 @@
 
 #include "object/strbuf.h"
 
-class O_Stream
+class O_Stream: public Stringbuffer
 /* Hier muesst ihr selbst Code vervollstaendigen */         
  {
 private:
       O_Stream(const O_Stream &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */     
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+public:
+      O_Stream(){}
  };
 
 /*---------------------------------------------------------------------------*/
