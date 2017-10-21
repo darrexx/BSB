@@ -30,4 +30,27 @@ O_Stream& O_Stream::operator<< (char c){
     put(c);
     return *this;
 }
+
+O_Stream& O_Stream::operator<< (unsigned short number){
+    unsigned char shortCharArray[5];
+
+    unsigned char countOfDigits = 0;
+
+    if (number == 0){
+        put('0');
+        return *this;
+    }
+
+    for(unsigned char counter = 0; counter < 5 && number !=0; counter++){
+        countOfDigits++;
+        shortCharArray[counter] = (char) (number % 10);
+        number = number / 10;
+    }
+
+    for(unsigned char counter = countOfDigits + 1; counter >=0; counter--){
+        put(shortCharArray[counter - 1]);
+    }
+    return *this;
+
+}
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
