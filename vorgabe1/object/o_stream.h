@@ -30,6 +30,18 @@ private:
 
 public:
       O_Stream(){}
+
+      O_Stream& operator<< (unsigned char c);
+      O_Stream& operator<< (char c);
+      O_Stream& operator<< (unsigned short number);
+      O_Stream& operator<< (short number);
+      O_Stream& operator<< (unsigned int number);
+      O_Stream& operator<< (int number);
+      O_Stream& operator<< (unsigned long number);
+      O_Stream& operator<< (long number);
+      O_Stream& operator<< (void* pointer);
+      O_Stream& operator<< (char* text);
+      O_Stream& operator<< (O_Stream& (*fkt) (O_Stream&));
  };
 
 /*---------------------------------------------------------------------------*/

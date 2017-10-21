@@ -18,4 +18,16 @@
 
 #include "object/o_stream.h"
 
+O_Stream& O_Stream::operator<< (unsigned char c){
+    put(c);
+    return *this;
+}
+
+O_Stream& O_Stream::operator<< (char c){
+    if(c < 0){
+        put('-');
+    }
+    put(c);
+    return *this;
+}
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
