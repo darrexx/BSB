@@ -270,12 +270,14 @@ Keyboard_Controller::Keyboard_Controller () :
 
 Key Keyboard_Controller::key_hit ()
  {
-   Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-   return invalid;
+   gather = Key();  // nicht explizit initialisierte Tasten sind ungueltig
+  //TODO/* Hier muesst ihr selbst Code vervollstaendigen */
+/* Hier muesst ihr selbst Code vervollstaendigen */
+
+	code = data_port.inb();
+	while(!key_decoded()){};
+
+   return gather;
  }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
