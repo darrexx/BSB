@@ -11,6 +11,8 @@
 /* INCLUDES */
 
 #include "machine/keyctrl.h"
+
+#include "cgascr.h"
  
 /* STATIC MEMERS */
 
@@ -274,8 +276,33 @@ Key Keyboard_Controller::key_hit ()
   //TODO/* Hier muesst ihr selbst Code vervollstaendigen */
 /* Hier muesst ihr selbst Code vervollstaendigen */
 
-	code = data_port.inb();
+   unsigned char status=0x00;
+
+   while((status&0x01)!=0x01){
+ 		status = ctrl_port.inb();
+   }
+    code = data_port.inb();
+
+  while((status&0x01)!=0x01){
+		status = ctrl_port.inb();
+  }
+   code = data_port.inb();
+
 	while(!key_decoded()){};
+
+	if(gather.shift ()||
+			gather.alt_left ()||
+			gather.alt_right ()||
+			gather.ctrl_left ()||
+			gather.ctrl_right ()||
+			gather.caps_lock ()||
+			gather.num_lock ()||
+			gather.scroll_lock ()||
+			gather.alt ()||
+			gather.ctrl()||
+			(gather.scancode()&0x80)==0x80){
+		return Key();
+	}
 
    return gather;
  }

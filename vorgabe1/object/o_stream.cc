@@ -18,8 +18,57 @@
 
 #include "object/o_stream.h"
 
+O_Stream& O_Stream::operator<< (unsigned long number){
+
+    if (number == 0){
+        put('0');
+        return *this;
+    }
+
+	char buffer[150];
+	unsigned char countOfDigits=0;
+
+    for(unsigned char counter = 0; counter < 150 && number !=0; counter++){
+        countOfDigits++;
+        int modNumber = (number % system);
+        if(system==16){
+
+        	if(modNumber <10){
+        		buffer[counter]= '0' + modNumber;
+        	}else{
+        		buffer[counter]= 'A' + modNumber-10;
+        	}
+        }
+        else{
+            buffer[counter] = '0' + (modNumber);
+        }
+        number = number / system;
+    }
+
+
+    for(char counter = countOfDigits-1; counter >=0; counter--){
+    	put(buffer[counter]);
+    }
+    flush();
+	return *this;
+}
+
+O_Stream& O_Stream::operator<< (long number){
+	if(number<0){
+		if(system!=10){
+			number= (number^0xFFFFFFFFFFFFFFFF)+number;
+		}
+		else{
+			number = number * -1;
+			put('-');
+		}
+	}
+	return *this<< (unsigned long)number;
+}
+
 O_Stream& O_Stream::operator<< (unsigned char c){
     put(c);
+    flush();
     return *this;
 }
 
@@ -28,29 +77,78 @@ O_Stream& O_Stream::operator<< (char c){
         put('-');
     }
     put(c);
+    flush();
     return *this;
 }
 
 O_Stream& O_Stream::operator<< (unsigned short number){
-    unsigned char shortCharArray[5];
+    return *this << (unsigned long)number;
 
-    unsigned char countOfDigits = 0;
+}
 
-    if (number == 0){
-        put('0');
-        return *this;
-    }
+O_Stream& O_Stream::operator<<(short number){
+	return *this<< (long) number;
+}
 
-    for(unsigned char counter = 0; counter < 5 && number !=0; counter++){
-        countOfDigits++;
-        shortCharArray[counter] = (char) (number % 10);
-        number = number / 10;
-    }
+O_Stream& O_Stream::operator<<(unsigned int number){
+    return *this << (unsigned long)number;
+}
 
-    for(unsigned char counter = countOfDigits + 1; counter >=0; counter--){
-        put(shortCharArray[counter - 1]);
-    }
-    return *this;
+O_Stream& O_Stream::operator<<(int number){
+	return *this<< (long) number;
+}
 
+O_Stream& O_Stream::operator<<(void* pointer){
+	Zahlensystem copy= system;
+	system = hexa;
+	*this << (long) pointer;
+	system = copy;
+	flush();
+	return *this;
+}
+
+O_Stream& O_Stream::operator<<(char* text){
+	bool terminated=false;
+	int counter=0;
+	while(!terminated){
+		if(text[counter]!='\0'){
+			put(text[counter]);
+			counter++;
+		}else{
+			terminated=true;
+		}
+	}
+	flush();
+	return *this;
+}
+
+O_Stream& O_Stream::operator<<(O_Stream& (*fkt) (O_Stream&)){
+	fkt(*this);
+	return *this;
+}
+
+O_Stream& endl(O_Stream& os){
+	os<<'\n';
+	return os;
+}
+
+O_Stream& bin(O_Stream& os){
+	os.system = O_Stream::binaer;
+	return os;
+}
+
+O_Stream& octa(O_Stream& os){
+	os.system = O_Stream::oktal;
+	return os;
+}
+
+O_Stream& dec(O_Stream& os){
+	os.system = O_Stream::dezimal;
+	return os;
+}
+
+O_Stream& hex(O_Stream& os){
+	os.system = O_Stream::hexa;
+	return os;
 }
 /* Hier muesst ihr selbst Code vervollstaendigen */ 

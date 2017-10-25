@@ -16,13 +16,13 @@
 #include "object/strbuf.h"
 
 void Stringbuffer::put(char c){
-    lastWrittenIndex++;
-    if (lastWrittenIndex > 79 || c=='\n'){
+    if (lastWrittenIndex > 79 ){
         flush();
-        buffer[lastWrittenIndex] = c;
+        lastWrittenIndex=0;
     }
     else{
         buffer[lastWrittenIndex] = c;
+        lastWrittenIndex++;
     }
 }
 

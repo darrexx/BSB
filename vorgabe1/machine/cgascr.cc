@@ -57,6 +57,10 @@ void CGA_Screen::print(char* text, int length, unsigned char attrib)
 	int y;
 	for(int i = 0; i<length;i++){
 		CGA_Screen::getpos(x,y);
+		if(text[i]=='\n'){
+			CGA_Screen::setpos(0, y+1);
+			continue;
+		}
 		CGA_Screen::show(x, y, text[i], attrib);
 		if(x<79){
 			CGA_Screen::setpos(x+1, y);

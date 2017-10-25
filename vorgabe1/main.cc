@@ -4,6 +4,7 @@
 #include "machine/cgascr.h"
 #include "machine/keyctrl.h"
 #include "machine/key.h"
+#include "device/cgastr.h"
         
 int main()
 {
@@ -25,14 +26,18 @@ int main()
 //	scr.print("debug", 5, 0x0f);
 
 	scr.setpos(0, 10);
-	while(1){
-		pressed = control.key_hit();
+	kout<<"a"<<endl<<"b"<<endl<<"test"<<endl;
+	short a =-2;
+	kout << "a = " << dec << a << " ist hexadezimal " << hex << a <<" und binaer: "<<bin<<a<<endl;
 
-		if(pressed.valid()){
-			key[0] = pressed.ascii();
-			scr.print(key, 1, 0x0f);
-		}
-	}
+//	while(1){
+//		pressed = control.key_hit();
+//
+//		if(pressed.valid()){
+//			key[0] = pressed.ascii();
+//			scr.print(key, 1, 0x0f);
+//		}
+//	}
 /* Hier muesst ihr selbst Code vervollstaendigen */         
          
 /* Hier muesst ihr selbst Code vervollstaendigen */ 

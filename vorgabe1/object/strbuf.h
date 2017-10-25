@@ -28,7 +28,7 @@ private:
 public:
       Stringbuffer(){}
 
-      int lastWrittenIndex; // last written index
+      int lastWrittenIndex=0; // last written index
       char buffer [80];
 
       void put(char c);
