@@ -14,4 +14,29 @@
 /* kann mit Hilfe der Klasse CPU festgelegt werden.                          */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#ifndef __pic_include__
+#define __pic_include__
+
+#include "machine/io_port.h"
+#include "device/cgastr.h"
+#include "machine/cpu.h"
+
+class PIC
+ {
+private:
+    PIC(const PIC &copy); // Verhindere Kopieren
+
+    IO_Port imr_low; //interrupt mask register low byte
+    IO_Port imr_high; //interrupt mask register high byte
+
+public:
+    PIC() : imr_low(0x21) , imr_high(0xa1) {}
+
+    enum {timer = 0, keyboard = 1};
+
+    void allow(int interrupt_device);
+    void forbid(int interrupt_device);
+    bool is_masked (int interrupt_device);      
+ };
+
+#endif

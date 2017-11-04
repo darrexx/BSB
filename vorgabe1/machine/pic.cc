@@ -14,16 +14,37 @@
 /* kann mit Hilfe der Klasse CPU festgelegt werden.                          */
 /*****************************************************************************/
 
-#ifndef __pic_include__
-#define __pic_include__
+/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
-class PIC
- {
-private:
-    PIC(const PIC &copy); // Verhindere Kopieren
-public:
-    PIC() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- };
+#include "machine/pic.h"
 
-#endif
+
+void PIC::allow(int interrupt_device){
+    char status;
+
+    status = imr_low.inb(); //status lesen
+
+    //buffer mitgeben, damit status sich gemerkt wird
+    imr_low.outb(status & ~(1 << interrupt_device)); //status auf allow setzen
+}
+
+void PIC::forbid(int interrupt_device){
+    char status;
+
+	status = imr_low.inb();
+    
+    imr_low.outb(status | (1 << interrupt_device));
+}
+
+bool PIC::is_masked(int interrupt_device){
+    char status;
+
+    status = imr_low.inb();
+
+    if(0 == ((status >> interrupt_device) & 1)){ // position interrupt device vergleichen
+        return false;
+    }
+    else{
+        return true;
+    }
+}
