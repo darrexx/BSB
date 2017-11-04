@@ -337,9 +337,29 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+  int status;
+
+  if (delay < 0 || delay > 3){
+    delay = 0;
+  }
+
+  status |= delay<<4; //delay sind bits 5 und 6
+
+  if (speed != 0x00
+    && speed != 0x02
+    && speed != 0x04
+    && speed != 0x08
+    && speed != 0x0c
+    && speed != 0x10
+    && speed != 0x14)
+    {
+      speed = 0x00;
+    }
+  status |= speed;
+
+  data_port.outb(kbd_cmd::set_speed);
+  while (data_port.inb() != kbd_reply::ack){} // Auf Ack warten
+  data_port.outb(status);        
           
  }
 
@@ -347,8 +367,15 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
 
 void Keyboard_Controller::set_led (char led, bool on)
  {
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+   if(on){
+     leds |= led;
+   }
+   else{
+     leds &= ~led;
+   }
+
+   data_port.outb(kbd_cmd::set_speed);
+   while (data_port.inb() != kbd_reply::ack){} // Auf Ack warten
+   data_port.outb(leds);
           
  }
