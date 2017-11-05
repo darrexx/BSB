@@ -2,12 +2,18 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                              P L U G B O X                                */
+/*                                  G A T E                                  */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Abstraktion einer Interruptvektortabelle. Damit kann man die Behandlungs- */
-/* routine fuer jeden Hardware-, Softwareinterrupt und jede Prozessor-       */
-/* exception festlegen.                                                      */
+/* Klasse von Objekten, die in der Lage sind, Unterbrechungen zu behandeln.  */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#ifndef __Gate_include__
+#define __Gate_include__
+
+class Gate{
+public:
+    virtual void trigger() = 0;
+};
+                
+#endif

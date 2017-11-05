@@ -2,15 +2,19 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                                  G A T E                                  */
+/*                                 P A N I C                                 */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Klasse von Objekten, die in der Lage sind, Unterbrechungen zu behandeln.  */
+/* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
-
-#ifndef __Gate_include__
-#define __Gate_include__
-
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
-                
-#endif
+/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "device/panic.h" 
+#include "device/cgastr.h"
+#include "machine/cpu.h"
+
+void Panic::trigger()
+{
+    kout << "Fehlermeldung!" << endl;
+    //cpu.halt(); TODO Irgendwie CPU bekannt machen?
+}
