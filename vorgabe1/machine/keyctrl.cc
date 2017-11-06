@@ -11,6 +11,7 @@
 /* INCLUDES */
 
 #include "machine/keyctrl.h"
+#include "device/cgastr.h"
 
 #include "cgascr.h"
  
@@ -283,26 +284,26 @@ Key Keyboard_Controller::key_hit ()
    }
     code = data_port.inb();
 
-  while((status&0x01)!=0x01){
-		status = ctrl_port.inb();
-  }
-   code = data_port.inb();
+	while(!key_decoded()){
+		while((status&0x01)!=0x01){
+			status = ctrl_port.inb();
+		}
+		code = data_port.inb();
+	};
 
-	while(!key_decoded()){};
-
-	if(gather.shift ()||
-			gather.alt_left ()||
-			gather.alt_right ()||
-			gather.ctrl_left ()||
-			gather.ctrl_right ()||
-			gather.caps_lock ()||
-			gather.num_lock ()||
-			gather.scroll_lock ()||
-			gather.alt ()||
-			gather.ctrl()||
-			(gather.scancode()&0x80)==0x80){
-		return Key();
-	}
+//	if(gather.shift ()||
+//			gather.alt_left ()||
+//			gather.alt_right ()||
+//			gather.ctrl_left ()||
+//			gather.ctrl_right ()||
+//			gather.caps_lock ()||
+//			gather.num_lock ()||
+//			gather.scroll_lock ()||
+//			gather.alt ()||
+//			gather.ctrl()||
+//			(gather.scancode()&0x80)==0x80){
+//		return Key();
+//	}
 
    return gather;
  }
