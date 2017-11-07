@@ -22,6 +22,9 @@ private:
 	char * const CGA_START;
 	IO_Port index;
 	IO_Port daten;
+	void scroll();
+	void clearLine(int pos);
+	void clearScreen();
 
    CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
 public:

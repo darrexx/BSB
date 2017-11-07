@@ -30,7 +30,7 @@ int main()
 	kout<<"a"<<endl<<"b"<<endl<<"test"<<endl;
 	short a =-2;
 	kout << "a = " << dec << a << " ist hexadezimal " << hex << a <<" und binaer: "<<bin<<a<<endl;
-
+	scr.setpos(0, 0);
 	while(1){
 		pressed = control.key_hit();
 

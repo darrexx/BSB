@@ -58,14 +58,66 @@ void CGA_Screen::print(char* text, int length, unsigned char attrib)
 	for(int i = 0; i<length;i++){
 		CGA_Screen::getpos(x,y);
 		if(text[i]=='\n'){
-			CGA_Screen::setpos(0, y+1);
+			if(y<24){
+				CGA_Screen::setpos(0, y+1);
+			} else{
+				CGA_Screen::scroll();
+				CGA_Screen::setpos(0, y);
+			}
 			continue;
 		}
 		CGA_Screen::show(x, y, text[i], attrib);
 		if(x<79){
 			CGA_Screen::setpos(x+1, y);
 		}else{
+			if(y<24){
 			CGA_Screen::setpos(0, y+1);
+			} else{
+				CGA_Screen::scroll();
+				CGA_Screen::setpos(0, y);
+			}
 		}
+	}
+}
+
+void CGA_Screen::scroll()
+{
+
+	for(int i=0;i<80;i++){
+		for(int j=1;j<25;j++){
+			char *pos_from;
+			char *pos_to;
+
+			pos_from= CGA_START + 2*(i+j*80);
+			pos_to= CGA_START + 2*(i+(j-1)*80);
+
+
+			*pos_to = *pos_from;
+			*(pos_to+1) = *(pos_from+1);
+		}
+	}
+
+	clearLine(24);
+}
+
+
+void CGA_Screen::clearLine(int pos)
+{
+	int j=pos;
+
+	if(pos<0||pos>24){return;}
+	for(int i=0;i<80;i++){
+
+		char *pos;
+
+		pos= CGA_START + 2*(i+j*80);
+		*pos = ' ';
+		*(pos+1) = 0x0F;
+	}
+}
+
+void CGA_Screen::clearScreen(){
+	for(int i=0;i<=24;i++){
+		clearLine(i);
 	}
 }
