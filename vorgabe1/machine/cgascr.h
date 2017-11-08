@@ -18,7 +18,6 @@
 class CGA_Screen
  {
 private:
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 	char * const CGA_START;
 	IO_Port index;
 	IO_Port daten;
@@ -31,7 +30,6 @@ public:
 	:CGA_START((char*)0xb8000),
 	 index(0x3d4),
 	 daten(0x3d5)
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
  {}
 
    void show(int x, int y, char c, unsigned char attrib);
@@ -39,11 +37,10 @@ public:
    void getpos(int &x, int &y);
    void print(char* text, int length, unsigned char attrib);
    void clear();
-
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
  };
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+extern CGA_Screen screen;
 
 #endif
 

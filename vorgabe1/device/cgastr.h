@@ -17,6 +17,7 @@
 #include "object/o_stream.h"
 #include "machine/cgascr.h"
 
+
 class CGA_Stream :public O_Stream, public CGA_Screen
 /* Hier muesst ihr selbst Code vervollstaendigen */         
  {

@@ -16,5 +16,5 @@
 void Panic::trigger()
 {
     kout << "Fehlermeldung!" << endl;
-    //cpu.halt(); TODO Irgendwie CPU bekannt machen?
+    cpu.halt();// TODO Irgendwie CPU bekannt machen?
 }

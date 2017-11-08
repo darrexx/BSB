@@ -16,9 +16,10 @@ void Keyboard::plugin(){
     plugbox.assign(Plugbox::KEYBOARD, *this);
     pic.allow(PIC::keyboard);
 }
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
  
 void Keyboard::trigger(){
-
+	Key key = key_hit();
+	if(key.valid()){
+		screen.show(10, 10, key.ascii(), 0x0f);
+	}
 }

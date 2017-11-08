@@ -26,6 +26,7 @@ private:
          
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
+      Keyboard(){}
  
       // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
       void plugin ();

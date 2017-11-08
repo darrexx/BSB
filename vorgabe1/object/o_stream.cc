@@ -101,7 +101,7 @@ O_Stream& O_Stream::operator<<(int number){
 O_Stream& O_Stream::operator<<(void* pointer){
 	Zahlensystem copy= system;
 	system = hexa;
-	*this << (long) pointer;
+	*this << (long) &pointer;
 	system = copy;
 	flush();
 	return *this;

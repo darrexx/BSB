@@ -274,8 +274,6 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
    gather = Key();  // nicht explizit initialisierte Tasten sind ungueltig
-  //TODO/* Hier muesst ihr selbst Code vervollstaendigen */
-/* Hier muesst ihr selbst Code vervollstaendigen */
 
    unsigned char status=0x00;
 
@@ -284,12 +282,13 @@ Key Keyboard_Controller::key_hit ()
    }
     code = data_port.inb();
 
-	while(!key_decoded()){
-		while((status&0x01)!=0x01){
-			status = ctrl_port.inb();
-		}
-		code = data_port.inb();
-	};
+    key_decoded();
+//	while(!key_decoded());
+//		while((status&0x01)!=0x01){
+//			status = ctrl_port.inb();
+//		}
+//		code = data_port.inb();
+//	};
 
    return gather;
  }
@@ -324,21 +323,21 @@ void Keyboard_Controller::reboot ()
 
 void Keyboard_Controller::set_repeat_rate (int speed, int delay)
  {
-  int status;
+  int status=0;
 
   if (delay < 0 || delay > 3){
     delay = 0;
   }
 
-  status |= delay<<4; //delay sind bits 5 und 6
+  status |= delay<<5; //delay sind bits 5 und 6
 
-  if (speed != 0x00
-    && speed != 0x02
-    && speed != 0x04
-    && speed != 0x08
-    && speed != 0x0c
-    && speed != 0x10
-    && speed != 0x14)
+  if (speed<0||speed>31)
+//    && speed != 0x02
+//    && speed != 0x04
+//    && speed != 0x08
+//    && speed != 0x0c
+//    && speed != 0x10
+//    && speed != 0x14)
     {
       speed = 0x00;
     }
