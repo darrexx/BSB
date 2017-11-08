@@ -24,17 +24,17 @@ private:
     Gate* gates[64];
 
 public:
-    Plugbox() : TIMER(32), KEYBOARD(33) {
+    Plugbox() {
         for(int i = 0; i < 64; i++){
             gates[i] = &panic;
         }
     }
-    int TIMER;
-    int KEYBOARD;
+    enum {TIMER = 32, KEYBOARD = 33};
     
     void assign(unsigned int slot, Gate& gate);
 
     Gate& report (unsigned int slot);
  };
 
+ extern Plugbox plugbox;
 #endif

@@ -31,12 +31,14 @@ private:
 
 public:
     PIC() : imr_low(0x21) , imr_high(0xa1) {}
-
+ 
     enum {timer = 0, keyboard = 1};
 
     void allow(int interrupt_device);
     void forbid(int interrupt_device);
     bool is_masked (int interrupt_device);      
  };
+
+extern PIC pic;
 
 #endif
