@@ -11,7 +11,8 @@ int main()
 	CGA_Screen scr;
 	Keyboard_Controller control;
 	Key pressed;
-	control.set_repeat_rate(0, 3);
+	control.set_repeat_rate(0x00, 3);
+	scr.clear();
 	char key[1];
 	scr.show(1, 1, 'A', 0x0f);
 	scr.setpos(0, 1);
@@ -28,9 +29,9 @@ int main()
 
 	scr.setpos(0, 10);
 	kout<<"a"<<endl<<"b"<<endl<<"test"<<endl;
-	short a =-2;
-	kout << "a = " << dec << a << " ist hexadezimal " << hex << a <<" und binaer: "<<bin<<a<<endl;
-	scr.setpos(0, 0);
+	short a = -1;
+	kout << "a = " << dec << a << " ist hexadezimal: " << hex << a <<", binaer: "<<bin<<a<<" und octal: "<<oct<<a<<endl;
+//	scr.setpos(0, 0);
 	while(1){
 		pressed = control.key_hit();
 

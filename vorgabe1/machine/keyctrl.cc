@@ -291,20 +291,6 @@ Key Keyboard_Controller::key_hit ()
 		code = data_port.inb();
 	};
 
-//	if(gather.shift ()||
-//			gather.alt_left ()||
-//			gather.alt_right ()||
-//			gather.ctrl_left ()||
-//			gather.ctrl_right ()||
-//			gather.caps_lock ()||
-//			gather.num_lock ()||
-//			gather.scroll_lock ()||
-//			gather.alt ()||
-//			gather.ctrl()||
-//			(gather.scancode()&0x80)==0x80){
-//		return Key();
-//	}
-
    return gather;
  }
 
@@ -358,10 +344,11 @@ void Keyboard_Controller::set_repeat_rate (int speed, int delay)
     }
   status |= speed;
 
+  while((ctrl_port.inb()&inpb)!= 0);
   data_port.outb(kbd_cmd::set_speed);
   while (data_port.inb() != kbd_reply::ack){} // Auf Ack warten
-  data_port.outb(status);        
-          
+  data_port.outb(status);
+
  }
 
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
@@ -375,7 +362,8 @@ void Keyboard_Controller::set_led (char led, bool on)
      leds &= ~led;
    }
 
-   data_port.outb(kbd_cmd::set_speed);
+   while((ctrl_port.inb()&inpb)!= 0);
+   data_port.outb(kbd_cmd::set_led);
    while (data_port.inb() != kbd_reply::ack){} // Auf Ack warten
    data_port.outb(leds);
           

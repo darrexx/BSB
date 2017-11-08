@@ -116,7 +116,7 @@ void CGA_Screen::clearLine(int pos)
 	}
 }
 
-void CGA_Screen::clearScreen(){
+void CGA_Screen::clear(){
 	for(int i=0;i<=24;i++){
 		clearLine(i);
 	}

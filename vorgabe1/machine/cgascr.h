@@ -24,7 +24,6 @@ private:
 	IO_Port daten;
 	void scroll();
 	void clearLine(int pos);
-	void clearScreen();
 
    CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
 public:
@@ -39,6 +38,7 @@ public:
    void setpos(int x, int y);
    void getpos(int &x, int &y);
    void print(char* text, int length, unsigned char attrib);
+   void clear();
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
  };

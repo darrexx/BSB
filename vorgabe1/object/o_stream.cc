@@ -56,7 +56,7 @@ O_Stream& O_Stream::operator<< (unsigned long number){
 O_Stream& O_Stream::operator<< (long number){
 	if(number<0){
 		if(system!=10){
-			number= (number^0xFFFFFFFFFFFFFFFF)+number;
+			number= ((number*-1)^0xFFFFFFFF)+1;
 		}
 		else{
 			number = number * -1;
@@ -137,7 +137,7 @@ O_Stream& bin(O_Stream& os){
 	return os;
 }
 
-O_Stream& octa(O_Stream& os){
+O_Stream& oct(O_Stream& os){
 	os.system = O_Stream::oktal;
 	return os;
 }
