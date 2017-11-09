@@ -167,7 +167,7 @@ bool Keyboard_Controller::key_decoded ()
 	
      default: // alle anderen Tasten
        // ASCII Codes aus den entsprechenden Tabellen auslesen, fertig.
-       get_ascii_code ();
+//       get_ascii_code ();
        done = true;
      }
 
@@ -273,7 +273,7 @@ Keyboard_Controller::Keyboard_Controller () :
 
 Key Keyboard_Controller::key_hit ()
  {
-   gather = Key();  // nicht explizit initialisierte Tasten sind ungueltig
+   Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
 
    unsigned char status=0x00;
 
@@ -282,7 +282,10 @@ Key Keyboard_Controller::key_hit ()
    }
     code = data_port.inb();
 
-    key_decoded();
+    if(key_decoded()){
+        get_ascii_code();
+        return gather;
+    }
 //	while(!key_decoded());
 //		while((status&0x01)!=0x01){
 //			status = ctrl_port.inb();
@@ -290,7 +293,7 @@ Key Keyboard_Controller::key_hit ()
 //		code = data_port.inb();
 //	};
 
-   return gather;
+   return invalid;
  }
 
 // REBOOT: Fuehrt einen Neustart des Rechners durch. Ja, beim PC macht
