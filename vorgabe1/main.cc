@@ -23,6 +23,7 @@ int main()
 	Keyboard board;
 	board.plugin();
 	kout.clear();
+	cpu.enable_int();
 	kout.setpos(0, 0);
 
 	Application app;
