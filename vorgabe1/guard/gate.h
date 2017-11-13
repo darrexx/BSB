@@ -11,9 +11,18 @@
 #ifndef __Gate_include__
 #define __Gate_include__
 
-class Gate{
+#include "object/chain.h"
+
+class Gate : public Chain {
+private:
+	bool listed;
+
 public:
-    virtual void trigger() = 0;
+//    virtual void trigger() = 0;
+    virtual bool prologue (){return false;}
+    virtual void epilogue () {}
+    void queued (bool q){listed = q;}
+    bool queued (){return listed;}
 };
                 
 #endif

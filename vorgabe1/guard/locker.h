@@ -19,7 +19,26 @@ class Locker
  {
 private:
     Locker(const Locker &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+    bool locked;
+public:
+    Locker() {locked = false;}
+    inline void enter ()
+    {
+    	while(locked);
+    	locked = true;
+    }
+
+    inline void retne ()
+    {
+    	if(locked){
+    		locked=false;
+    	}
+    }
+
+    inline bool avail ()
+    {
+    	return !locked;
+    }
  };
 
 #endif

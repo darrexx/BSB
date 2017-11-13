@@ -11,4 +11,18 @@
 /* auf den kritischen Abschnitt zugreifen.                                   */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "guard.h"
+#include "machine/cpu.h"
+
+void Guard::leave ()
+{
+
+}
+
+void Guard::relay (Gate* item)
+{
+	cpu.disable_int();
+	queue.enqueue(item);
+	item->queued(true);
+	cpu.disable_int();
+}

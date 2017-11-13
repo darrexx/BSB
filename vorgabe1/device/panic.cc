@@ -13,8 +13,9 @@
 #include "device/cgastr.h"
 #include "machine/cpu.h"
 
-void Panic::trigger()
+bool Panic::prologue()
 {
     kout << "Fehlermeldung!" << endl;
     cpu.halt();// TODO Irgendwie CPU bekannt machen?
+    return false;
 }

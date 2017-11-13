@@ -11,6 +11,9 @@
 
 /* INCLUDES */
 #include "machine/plugbox.h"
+#include "guard.h"
+
+Guard guard;
 
 /* FUNKTIONEN */
                
@@ -21,5 +24,9 @@ extern "C" void guardian (unsigned int slot);
 
 void guardian (unsigned int slot)
  {
-	plugbox.report(slot).trigger();
+	if(plugbox.report(slot).prologue()){
+		if(!plugbox.report(slot).queued()){
+			guard.relay(&(plugbox.report(slot)));
+		}
+	}
  }

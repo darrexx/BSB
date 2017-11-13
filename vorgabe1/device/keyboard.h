@@ -22,7 +22,7 @@ class Keyboard : public Gate, public Keyboard_Controller
 {        
 private:
       Keyboard (const Keyboard &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */                 
+      Key key;
          
 public:
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
@@ -31,7 +31,9 @@ public:
       // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
       void plugin ();
 
-      void trigger ();
+//      void trigger ();
+      bool prologue ();
+      void epilogue ();
 
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
         
