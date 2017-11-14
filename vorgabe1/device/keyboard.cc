@@ -39,12 +39,12 @@ bool Keyboard::prologue ()
 void Keyboard::epilogue ()
 {
    	if(key.valid()){
-   			kout.setpos(40, 24);
-   			kout<< key.ascii();
+   		kout.setpos(40, 24);
+   		kout<< key.ascii();
 
-   			unsigned char a = key.scancode();
-    		if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
-    			reboot();
-    		}
+   		unsigned char a = key.scancode();
+    	if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
+    		reboot();
     	}
+    }
 }

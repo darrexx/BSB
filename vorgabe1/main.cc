@@ -10,6 +10,7 @@
 #include "device/panic.h"
 #include "device/keyboard.h"
 #include "user/appl.h"
+#include "guard/guard.h"
 
 
 CGA_Stream kout;
@@ -17,6 +18,7 @@ CPU cpu;
 PIC pic;
 Plugbox plugbox;
 Panic panic;
+Guard guard;
         
 int main()
 {

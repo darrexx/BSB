@@ -13,10 +13,24 @@
 
 #include "guard.h"
 #include "machine/cpu.h"
+#include "gate.h"
+#include "device/cgastr.h"
 
 void Guard::leave ()
 {
-
+	cpu.enable_int();
+	if(avail()){
+		enter();
+		Gate* gate = (Gate*)queue.dequeue();
+		if(gate!=0){
+			gate->queued(false);
+			gate->epilogue();
+			gate = (Gate*)queue.dequeue();
+			retne();
+			leave();
+		}
+		else{retne();}
+	}
 }
 
 void Guard::relay (Gate* item)
@@ -24,5 +38,5 @@ void Guard::relay (Gate* item)
 	cpu.disable_int();
 	queue.enqueue(item);
 	item->queued(true);
-	cpu.disable_int();
+	cpu.enable_int();
 }

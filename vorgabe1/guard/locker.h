@@ -31,8 +31,9 @@ public:
     inline void retne ()
     {
     	if(locked){
-    		locked=false;
     	}
+
+		locked=false;
     }
 
     inline bool avail ()

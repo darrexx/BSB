@@ -13,6 +13,7 @@
 #include "user/appl.h"
 #include "device/cgastr.h"
 #include "machine/cpu.h"
+#include "guard/guard.h"
 /* Hier muesst ihr selbst Code vervollstaendigen */         
          
 /* GLOBALE VARIABLEN */
@@ -24,10 +25,13 @@ void Application::action ()
  {
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
 	while(1){
-		cpu.disable_int();
-		kout.setpos(30,0);
-		kout<<"Dies ist eine Ausgabe!!!";
-		cpu.enable_int();
+		if(guard.avail()){
+			guard.enter();
+			kout.setpos(30,0);
+			kout<<"Dies ist eine Ausgabe!!!";
+			guard.retne();
+			guard.leave();
+		}
 	}
  
  }
