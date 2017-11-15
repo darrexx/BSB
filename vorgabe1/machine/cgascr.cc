@@ -14,8 +14,6 @@
 
 #include "machine/cgascr.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-
 void CGA_Screen::show(int x, int y, char c, unsigned char attrib)
 {
 	char *pos;
@@ -120,4 +118,32 @@ void CGA_Screen::clear(){
 	for(int i=0;i<=24;i++){
 		clearLine(i);
 	}
+}
+
+void CGA_Screen::bluescreen(char* text){
+	for(int i=0;i<=24;i++){
+		int j=i;
+
+		if(i<0||i>24){return;}
+		for(int k=0;k<80;k++){
+
+			char *pos;
+
+			pos= CGA_START + 2*(k+j*80);
+			*pos = ' ';
+			*(pos+1) = 0x1F;
+		}
+	}
+
+	bool terminated=false;
+		int counter=0;
+		while(!terminated){
+			if(text[counter]!='\0'){
+				counter++;
+			}else{
+				terminated=true;
+			}
+		}
+	setpos(0,0);
+	print(text,counter,0x1F);
 }

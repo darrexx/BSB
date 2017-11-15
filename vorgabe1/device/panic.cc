@@ -15,7 +15,7 @@
 
 bool Panic::prologue()
 {
-    kout << "Fehlermeldung!" << endl;
-    cpu.halt();// TODO Irgendwie CPU bekannt machen?
+    kout.bluescreen("Unbekannter Interrupt gefangen!");
+    cpu.halt();
     return false;
 }

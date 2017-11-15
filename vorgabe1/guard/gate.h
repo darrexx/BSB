@@ -21,8 +21,8 @@ public:
 //    virtual void trigger() = 0;
     virtual bool prologue (){return false;}
     virtual void epilogue () {}
-    void queued (bool q){listed = q;}
-    bool queued (){return listed;}
+    inline void queued (bool q){listed = q;}
+    inline bool queued (){return listed;}
 };
                 
 #endif

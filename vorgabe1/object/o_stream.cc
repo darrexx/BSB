@@ -151,4 +151,3 @@ O_Stream& hex(O_Stream& os){
 	os.system = O_Stream::hexa;
 	return os;
 }
-/* Hier muesst ihr selbst Code vervollstaendigen */ 

@@ -18,14 +18,12 @@
 #include "machine/pic.h"
  
 class Keyboard : public Gate, public Keyboard_Controller    
-/* Hier muesst ihr selbst Code vervollstaendigen */         
 {        
 private:
       Keyboard (const Keyboard &copy); // Verhindere Kopieren
       Key key;
          
 public:
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
       Keyboard(){}
  
       // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
@@ -34,8 +32,6 @@ public:
 //      void trigger ();
       bool prologue ();
       void epilogue ();
-
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
         
  };
 

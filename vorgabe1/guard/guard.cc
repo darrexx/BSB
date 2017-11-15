@@ -18,19 +18,20 @@
 
 void Guard::leave ()
 {
+	cpu.disable_int();
+	Gate* gate = (Gate*)queue.dequeue();
 	cpu.enable_int();
-	if(avail()){
-		enter();
-		Gate* gate = (Gate*)queue.dequeue();
-		if(gate!=0){
-			gate->queued(false);
-			gate->epilogue();
-			gate = (Gate*)queue.dequeue();
-			retne();
-			leave();
-		}
-		else{retne();}
+
+	while(gate!=0){
+
+		gate->queued(false);
+		gate->epilogue();
+
+		cpu.disable_int();
+		gate = (Gate*)queue.dequeue();
+		cpu.enable_int();
 	}
+	 guard.retne();
 }
 
 void Guard::relay (Gate* item)

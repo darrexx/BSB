@@ -22,11 +22,9 @@
 #include "object/strbuf.h"
 
 class O_Stream: public Stringbuffer
-/* Hier muesst ihr selbst Code vervollstaendigen */         
  {
 private:
       O_Stream(const O_Stream &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */
 
 public:
       enum Zahlensystem {binaer=2, oktal=8, dezimal=10,hexa=16};
@@ -60,24 +58,19 @@ public:
 /*---------------------------------------------------------------------------*/
 
 // ENDL: fuegt einen Zeilenumbruch in die Ausgabe ein.
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
 O_Stream& endl(O_Stream& os);
 
 // BIN: waehlt das binaere Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 O_Stream& bin(O_Stream& os);
         
 // OCT: waehlt das oktale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 O_Stream& oct(O_Stream& os);
         
 // DEC: waehlt das dezimale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 O_Stream& dec(O_Stream& os);
         
 // HEX: waehlt das hexadezimale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 O_Stream& hex(O_Stream& os);
 
 #endif

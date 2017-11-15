@@ -37,6 +37,7 @@ public:
    void getpos(int &x, int &y);
    void print(char* text, int length, unsigned char attrib);
    void clear();
+   void bluescreen(char* text);
  };
 
 

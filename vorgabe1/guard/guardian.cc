@@ -13,6 +13,8 @@
 #include "machine/plugbox.h"
 #include "guard.h"
 #include "locker.h"
+#include "secure.h"
+#include "machine/cpu.h"
 
 
 /* FUNKTIONEN */
@@ -30,7 +32,10 @@ void guardian (unsigned int slot)
 		if(!gate.queued()){
 
 			guard.relay(&(gate));
-			guard.leave();
+			cpu.enable_int();
+			if(guard.avail()){
+				Secure secure;
+			}
 		}
 	}
  }
