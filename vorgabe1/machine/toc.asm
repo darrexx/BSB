@@ -26,7 +26,15 @@
 ; C Prototyp: void toc_go (struct toc* regs, void *coroutine);
 
 toc_go:
-; Hier muesst ihr selbst Code vervollstaendigen 
+mov rbx,[rdi+rbx_offset]
+mov r12,[rdi+r12_offset]
+mov r13,[rdi+r13_offset]
+mov r14,[rdi+r14_offset]
+mov r15,[rdi+r15_offset]
+mov rbp,[rdi+rbp_offset]
+mov rsp,[rdi+rsp_offset]
+mov rdi,rsi
+ret
 
 ; TOC_SWITCH : Prozessumschaltung. Der aktuelle Registersatz wird
 ;              gesichert und der Registersatz des neuen "thread of control"
@@ -37,4 +45,21 @@ toc_go:
 ;                              void *coroutine);
 
 toc_switch:
-; Hier muesst ihr selbst Code vervollstaendigen 
+
+mov [rdi+rbx_offset],rbx
+mov [rdi+r12_offset],r12
+mov [rdi+r13_offset],r13
+mov [rdi+r14_offset],r14
+mov [rdi+r15_offset],r15
+mov [rdi+rbp_offset],rbp
+mov [rdi+rsp_offset],rsp
+
+mov rbx,[rsi+rbx_offset]
+mov r12,[rsi+r12_offset]
+mov r13,[rsi+r13_offset]
+mov r14,[rsi+r14_offset]
+mov r15,[rsi+r15_offset]
+mov rbp,[rsi+rbp_offset]
+mov rsp,[rsi+rsp_offset]
+mov rdi,rdx
+ret

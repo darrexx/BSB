@@ -26,7 +26,7 @@ void Guard::leave ()
 		cpu.disable_int();
 		gate = (Gate*)queue.dequeue();
 		if(gate==0){
-			guard.retne;
+			guard.retne();
 			cpu.enable_int();
 			return;
 		}
