@@ -32,19 +32,20 @@ void Keyboard::plugin(){
 
 bool Keyboard::prologue ()
 {
-  	key = key_hit();
+  	Key key = key_hit();
+  	if(key.valid()){
+  	   		character = key.ascii();
+
+  	   		unsigned char a = key.scancode();
+  	    	if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
+  	    		reboot();
+  	    	}
+  	    }
   	return true;
 }
 
 void Keyboard::epilogue ()
 {
-   	if(key.valid()){
-   		kout.setpos(40, 24);
-   		kout<< key.ascii();
-
-   		unsigned char a = key.scancode();
-    	if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
-    		reboot();
-    	}
-    }
+   	kout.setpos(40, 24);
+   	kout<< character;
 }

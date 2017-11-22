@@ -21,7 +21,7 @@ class Keyboard : public Gate, public Keyboard_Controller
 {        
 private:
       Keyboard (const Keyboard &copy); // Verhindere Kopieren
-      Key key;
+      char character;
          
 public:
       Keyboard(){}
