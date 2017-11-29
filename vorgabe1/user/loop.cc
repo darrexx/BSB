@@ -11,7 +11,25 @@
 /* naechstes laufen soll.                                                    */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "user/loop.h"
+#include "device/cgastr.h"
+#include "machine/cpu.h"
+#include "guard/secure.h"
+#include "thread/scheduler.h"
+#include "user/appl.h"
  
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void Loop::action ()
+ {
+	while(1){
+		{
+		Secure secure;
+		kout.setpos(30,10);
+		kout<<"Dies ist Ausgabe Nr2!!!";
+		}
+		schedule.resume();
+
+	}
+
+ }
+
  

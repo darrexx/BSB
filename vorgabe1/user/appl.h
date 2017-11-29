@@ -11,14 +11,19 @@
 #ifndef __application_include__
 #define __application_include__
 
-class Application 
+#include "thread/entrant.h"
+
+class Application : public Entrant
  
  {
 private:
     Application (const Application &copy); // Verhindere Kopieren
+    char stack[2048];
 
 public:
-    Application(){};
+    Application():Application(&stack[2048]){};
+
+    Application(void* tos):Entrant(tos){};
           
     void action ();
  };

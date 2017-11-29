@@ -11,6 +11,9 @@
 #include "device/keyboard.h"
 #include "user/appl.h"
 #include "guard/guard.h"
+#include "thread/coroutine.h"
+#include "user/loop.h"
+#include "thread/scheduler.h"
 
 
 CGA_Stream kout;
@@ -19,6 +22,8 @@ PIC pic;
 Plugbox plugbox;
 Panic panic;
 Guard guard;
+Scheduler schedule;
+
         
 int main()
 {
@@ -27,9 +32,12 @@ int main()
 	kout.clear();
 	cpu.enable_int();
 	kout.setpos(0, 0);
-
 	Application app;
-	app.action();
+	Loop loop;
+	schedule.ready(app);
+	schedule.ready(loop);
+	schedule.schedule();
+
 
 	while(1);
 

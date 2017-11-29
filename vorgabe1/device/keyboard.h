@@ -29,7 +29,6 @@ public:
       // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
       void plugin ();
 
-//      void trigger ();
       bool prologue ();
       void epilogue ();
         

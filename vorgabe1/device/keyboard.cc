@@ -40,8 +40,9 @@ bool Keyboard::prologue ()
   	    	if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
   	    		reboot();
   	    	}
-  	    }
-  	return true;
+  	    	return true;
+  	 }
+  	return false;
 }
 
 void Keyboard::epilogue ()

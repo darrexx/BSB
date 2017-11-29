@@ -14,17 +14,22 @@
 #include "device/cgastr.h"
 #include "machine/cpu.h"
 #include "guard/secure.h"
+#include "user/loop.h"
+#include "thread/scheduler.h"
          
 /* GLOBALE VARIABLEN */
 
-extern CGA_Stream kout;
          
 void Application::action ()
  {
 	while(1){
+		{
 		Secure secure;
 		kout.setpos(30,0);
 		kout<<"Dies ist eine Ausgabe!!!";
+		}
+		schedule.resume();
 	}
  
  }
+

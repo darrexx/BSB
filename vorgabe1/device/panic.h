@@ -24,7 +24,6 @@ public:
     Panic () {}
 
     bool prologue();
-/* Hier muesst ihr selbst Code vervollstaendigen */                  
           
  };
 

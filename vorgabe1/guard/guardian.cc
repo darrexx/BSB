@@ -29,13 +29,6 @@ void guardian (unsigned int slot)
 	Gate& gate  = plugbox.report(slot);
 
 	if(gate.prologue()){
-		if(!gate.queued()){
-
-			guard.relay(&(gate));
-			cpu.enable_int();
-			if(guard.avail()){
-				Secure secure;
-			}
-		}
+		guard.relay(&(gate));
 	}
  }

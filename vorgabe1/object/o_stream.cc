@@ -73,9 +73,6 @@ O_Stream& O_Stream::operator<< (unsigned char c){
 }
 
 O_Stream& O_Stream::operator<< (char c){
-    if(c < 0){
-        put('-');
-    }
     put(c);
     flush();
     return *this;

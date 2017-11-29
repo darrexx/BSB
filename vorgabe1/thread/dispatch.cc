@@ -12,4 +12,23 @@
 /* dispatch() ausgeloest. active() liefert den life Pointer zurueck.         */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "thread/dispatch.h"
+
+Dispatcher::Dispatcher(){
+	lifePointer = 0;
+}
+
+void Dispatcher::go(Coroutine& first){
+	lifePointer = &first;
+	lifePointer->go();
+}
+
+void Dispatcher::dispatch(Coroutine &next){
+	Coroutine* last = lifePointer;
+	lifePointer = &next;
+	last->resume(next);
+}
+
+Coroutine* Dispatcher::active(){
+	return lifePointer;
+}

@@ -12,5 +12,11 @@
 /* Ruecksprungadresse interpretiert werden und der Rechner abstuerzen.       */
 /*****************************************************************************/
 
+#include "thread/kickoff.h"
+#include "device/cgastr.h"
+#include "guard/secure.h"
 /* Hier muesst ihr selbst Code vervollstaendigen */ 
+void kickoff(Coroutine* object){
+	object->action();
+}
  

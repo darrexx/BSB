@@ -18,9 +18,7 @@
 //             Aufruf vor.
 void toc_settle (struct toc* regs, void* tos, void (*kickoff)(void*))
  {
-	void** stackPointer;
-	stackPointer = &tos;
-	stackPointer--;
-	*stackPointer = kickoff;
+	long* stackPointer = tos;
+	*(--stackPointer) = kickoff;
 	regs->rsp=stackPointer;
  }

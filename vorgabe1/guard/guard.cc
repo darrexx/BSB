@@ -15,6 +15,7 @@
 #include "machine/cpu.h"
 #include "gate.h"
 #include "device/cgastr.h"
+#include "guard/secure.h"
 
 void Guard::leave ()
 {
@@ -39,8 +40,13 @@ void Guard::leave ()
 
 void Guard::relay (Gate* item)
 {
-	cpu.disable_int();
-	queue.enqueue(item);
-	item->queued(true);
-	cpu.enable_int();
+
+	if(!item->queued()){
+		queue.enqueue(item);
+		item->queued(true);
+		cpu.enable_int();
+		if(guard.avail()){
+			Secure();
+		}
+	}
 }
