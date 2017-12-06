@@ -15,7 +15,7 @@
 #include "machine/cpu.h"
 #include "guard/secure.h"
 #include "user/loop.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
          
 /* GLOBALE VARIABLEN */
 
@@ -28,7 +28,7 @@ void Application::action ()
 		kout.setpos(30,0);
 		kout<<"Dies ist eine Ausgabe!!!";
 		}
-		schedule.resume();
+		//schedule.resume();
 	}
  
  }

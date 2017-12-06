@@ -2,30 +2,24 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                                  P I T                                    */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Programmable Interval Timer.                                              */
 /*****************************************************************************/
 
-#ifndef __application_include__
-#define __application_include__
 
-#include "syscall/thread.h"
+#include "machine/pit.h"
 
-class Application : public Thread
- 
- {
-private:
-    Application (const Application &copy); // Verhindere Kopieren
-    char stack[2048];
+int PIT::interval (){
+	return iv;
+}
 
-public:
-    Application():Application(&stack[2048]){};
+void PIT::interval (int us){
+	iv=us;
+	unsigned int tInterval = us *1000/838;
 
-    Application(void* tos):Thread(tos){};
-          
-    void action ();
- };
-
-#endif
+	ctrl_port.outb(0b00110100);
+	count0.outb(tInterval & 0xFF);
+	count0.outb((tInterval>>8) & 0xFF);
+}

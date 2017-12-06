@@ -2,30 +2,30 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                   G U A R D E D _ S C H E D U L E R                       */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Systemaufrufschnittstelle zum Scheduler.                                  */
 /*****************************************************************************/
 
-#ifndef __application_include__
-#define __application_include__
+#ifndef __guarded_scheduler_include__
+#define __guarded_scheduler_include__
 
+#include "thread/scheduler.h"
 #include "syscall/thread.h"
-
-class Application : public Thread
- 
+        
+class Guarded_Scheduler : public Scheduler
  {
 private:
-    Application (const Application &copy); // Verhindere Kopieren
-    char stack[2048];
-
+      Guarded_Scheduler (const Guarded_Scheduler &copy); // Verhindere Kopieren
 public:
-    Application():Application(&stack[2048]){};
-
-    Application(void* tos):Thread(tos){};
-          
-    void action ();
+      Guarded_Scheduler () {}
+      void ready(Thread& that);
+      void exit();
+      void kill(Thread& that);
+      void resume();
  };
+
+extern Guarded_Scheduler schedule;
 
 #endif

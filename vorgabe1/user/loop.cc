@@ -15,7 +15,7 @@
 #include "device/cgastr.h"
 #include "machine/cpu.h"
 #include "guard/secure.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
 #include "user/appl.h"
  
 void Loop::action ()
@@ -26,7 +26,7 @@ void Loop::action ()
 		kout.setpos(30,10);
 		kout<<"Dies ist Ausgabe Nr2!!!";
 		}
-		schedule.resume();
+		//schedule.resume();
 
 	}
 

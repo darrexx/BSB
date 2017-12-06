@@ -2,30 +2,27 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                              W A T C H                                    */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
 /*****************************************************************************/
 
-#ifndef __application_include__
-#define __application_include__
 
-#include "syscall/thread.h"
+#include "device/watch.h"
+#include "machine/plugbox.h"
+#include "machine/pic.h"
+#include "syscall/guarded_scheduler.h"
 
-class Application : public Thread
- 
- {
-private:
-    Application (const Application &copy); // Verhindere Kopieren
-    char stack[2048];
+void Watch::windup (){
+    plugbox.assign(Plugbox::TIMER, *this);
+    pic.allow(PIC::timer);
+}
 
-public:
-    Application():Application(&stack[2048]){};
+bool Watch::prologue (){
+	return true;
+}
 
-    Application(void* tos):Thread(tos){};
-          
-    void action ();
- };
+void Watch::epilogue (){
+	schedule.Scheduler::resume();
+}
 
-#endif

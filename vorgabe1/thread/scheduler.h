@@ -29,6 +29,4 @@ public:
  
  };
 
-extern Scheduler schedule;
-
 #endif

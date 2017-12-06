@@ -13,7 +13,8 @@
 #include "guard/guard.h"
 #include "thread/coroutine.h"
 #include "user/loop.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
+#include "device/watch.h"
 
 
 CGA_Stream kout;
@@ -22,13 +23,15 @@ PIC pic;
 Plugbox plugbox;
 Panic panic;
 Guard guard;
-Scheduler schedule;
+Guarded_Scheduler schedule;
 
         
 int main()
 {
 	Keyboard board;
 	board.plugin();
+	Watch watch(2000);
+	watch.windup();
 	kout.clear();
 	cpu.enable_int();
 	kout.setpos(0, 0);

@@ -2,30 +2,27 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                             T H R E A D                                   */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Benutzerschnittstelle eines Threads.                                      */
 /*****************************************************************************/
 
-#ifndef __application_include__
-#define __application_include__
+#ifndef __thread_include__
+#define __thread_include__
 
-#include "syscall/thread.h"
-
-class Application : public Thread
+#include "thread/entrant.h"
  
+class Thread : public Entrant
+  
  {
 private:
-    Application (const Application &copy); // Verhindere Kopieren
-    char stack[2048];
-
+      Thread (const Thread &copy); // Verhindere Kopieren
 public:
-    Application():Application(&stack[2048]){};
+      Thread(void* tos):Entrant(tos){
 
-    Application(void* tos):Thread(tos){};
+      }
           
-    void action ();
  };
 
 #endif
