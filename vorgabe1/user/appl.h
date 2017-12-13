@@ -18,7 +18,7 @@ class Application : public Thread
  {
 private:
     Application (const Application &copy); // Verhindere Kopieren
-    char stack[2048];
+    char stack[8192];
 
 public:
     Application():Application(&stack[2048]){};
@@ -27,5 +27,7 @@ public:
           
     void action ();
  };
+
+extern Application	app;
 
 #endif

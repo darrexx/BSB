@@ -20,13 +20,15 @@
  
 void Loop::action ()
  {
+	int i=0;
 	while(1){
 		{
 		Secure secure;
 		kout.setpos(30,10);
-		kout<<"Dies ist Ausgabe Nr2!!!";
+		kout<<i;//"Dies ist Ausgabe Nr2!!!";
 		}
-		//schedule.resume();
+		i++;
+//		schedule.resume();
 
 	}
 

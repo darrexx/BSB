@@ -10,6 +10,8 @@
 
 #include "guarded_scheduler.h"
 #include "guard/secure.h"
+#include "device/watch.h"
+#include "machine/plugbox.h"
 
 
       void Guarded_Scheduler::ready(Thread& that){
@@ -29,5 +31,7 @@
 
       void Guarded_Scheduler::resume(){
     	  Secure secure;
+    	  Watch& watch = (Watch&) plugbox.report(plugbox.TIMER);
+    	  watch.interval(watch.interval());
     	  Scheduler::resume();
       }

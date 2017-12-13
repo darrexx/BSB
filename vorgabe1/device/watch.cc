@@ -21,8 +21,11 @@ void Watch::windup (){
 bool Watch::prologue (){
 	return true;
 }
-
+//TODO test mit ausgabe statt schedule
 void Watch::epilogue (){
 	schedule.Scheduler::resume();
+//	kout.setpos(0, 10);
+//	kout<<i;
+//	i++;
 }
 

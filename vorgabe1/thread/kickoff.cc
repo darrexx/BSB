@@ -15,8 +15,9 @@
 #include "thread/kickoff.h"
 #include "device/cgastr.h"
 #include "guard/secure.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
 void kickoff(Coroutine* object){
+	guard.leave();
 	object->action();
 }
  

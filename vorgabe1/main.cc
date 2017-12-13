@@ -15,6 +15,7 @@
 #include "user/loop.h"
 #include "syscall/guarded_scheduler.h"
 #include "device/watch.h"
+#include "guard/secure.h"
 
 
 CGA_Stream kout;
@@ -24,21 +25,22 @@ Plugbox plugbox;
 Panic panic;
 Guard guard;
 Guarded_Scheduler schedule;
+Application app;
+Loop loop;
 
         
 int main()
 {
+	Secure secure;
 	Keyboard board;
 	board.plugin();
-	Watch watch(2000);
+	Watch watch(20000);
 	watch.windup();
 	kout.clear();
 	cpu.enable_int();
 	kout.setpos(0, 0);
-	Application app;
-	Loop loop;
-	schedule.ready(app);
-	schedule.ready(loop);
+	schedule.Scheduler::ready(app);
+	schedule.Scheduler::ready(loop);
 	schedule.schedule();
 
 

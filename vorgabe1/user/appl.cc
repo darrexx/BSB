@@ -22,13 +22,15 @@
          
 void Application::action ()
  {
+	int i=0;
 	while(1){
 		{
 		Secure secure;
 		kout.setpos(30,0);
-		kout<<"Dies ist eine Ausgabe!!!";
+		kout<<i;//"Dies ist eine Ausgabe!!!";
 		}
-		//schedule.resume();
+		i++;
+//		schedule.resume();
 	}
  
  }

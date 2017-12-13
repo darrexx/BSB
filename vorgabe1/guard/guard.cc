@@ -33,8 +33,8 @@ void Guard::leave ()
 		}
 		cpu.enable_int();
 
-		gate->epilogue();
 		gate->queued(false);
+		gate->epilogue();
 	}
 }
 

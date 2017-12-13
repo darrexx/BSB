@@ -16,6 +16,7 @@
 
 #include "thread/coroutine.h"
 #include "thread/kickoff.h"
+#include "guard/guard.h"
 
 // Funktionen, die auf der C- oder Assembler-Ebene implementiert werden,
 // muessen als extern "C" deklariert werden, da sie nicht dem Name-Mangeling

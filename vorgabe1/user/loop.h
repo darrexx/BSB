@@ -20,7 +20,7 @@ class Loop : public Thread
  {
 private:
     Loop (const Loop &copy); // Verhindere Kopieren
-    char stack[2048];
+    char stack[8192];
 
 public:
     Loop():Loop(&stack[2048]){};
@@ -29,5 +29,6 @@ public:
 
     void action ();
  };
+extern Loop loop;
  
 #endif
