@@ -2,27 +2,31 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                         C U S T O M E R                                   */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Ein Thread, der auf ein Ereignis warten kann.                             */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
+#ifndef __customer_include__
+#define __customer_include__
 
-#include "thread/customer.h"
- 
-class Thread : public Customer
-  
+#include "thread/entrant.h"
+#include "meeting/waitingroom.h"
+
+class Waitingroom;
+        
+class Customer  : public Entrant
  {
 private:
-      Thread (const Thread &copy); // Verhindere Kopieren
-public:
-      Thread(void* tos):Customer(tos){
+    Customer (const Customer &copy); // Verhindere Kopieren
+    Waitingroom* wait;
 
-      }
-          
- };
+public:
+    Customer(void* tos):Entrant(tos),wait(0){};
+    void waiting_in(Waitingroom* w){wait=w;};
+    Waitingroom* waiting_in(){return wait;};
+
+};
 
 #endif

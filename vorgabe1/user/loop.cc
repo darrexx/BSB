@@ -25,7 +25,7 @@ void Loop::action ()
 		{
 		Secure secure;
 		kout.setpos(30,10);
-		kout<<i;//"Dies ist Ausgabe Nr2!!!";
+		kout<<"Dies ist Ausgabe Nr2!!! Counter: "<<i;
 		}
 		i++;
 //		schedule.resume();

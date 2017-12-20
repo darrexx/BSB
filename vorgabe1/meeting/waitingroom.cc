@@ -2,27 +2,23 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                             T H R E A D                                   */
+/*                        W A I T I N G R O O M                              */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Benutzerschnittstelle eines Threads.                                      */
+/* Liste von Threads, die auf ein Ereignis warten.                           */
 /*****************************************************************************/
 
-#ifndef __thread_include__
-#define __thread_include__
 
-#include "thread/customer.h"
- 
-class Thread : public Customer
-  
- {
-private:
-      Thread (const Thread &copy); // Verhindere Kopieren
-public:
-      Thread(void* tos):Customer(tos){
+#include "meeting/waitingroom.h"
 
-      }
-          
- };
+Waitingroom::~Waitingroom(){
+    	Customer* c = (Customer*) dequeue();
+    	while(c!=0){
+    		c->waiting_in(0);
+    		c = (Customer*) dequeue();
+    	}
+    }
 
-#endif
+void Waitingroom::remove(Customer* customer){
+    	Queue::remove(customer);
+    }

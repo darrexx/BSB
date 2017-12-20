@@ -27,9 +27,9 @@ void Application::action ()
 		{
 		Secure secure;
 		kout.setpos(30,0);
-		kout<<i;//"Dies ist eine Ausgabe!!!";
+		kout<<"Dies ist eine Ausgabe!!! Counter: "<<i;
 		}
-		i++;
+		i ++;
 //		schedule.resume();
 	}
  

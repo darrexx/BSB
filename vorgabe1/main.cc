@@ -13,9 +13,10 @@
 #include "guard/guard.h"
 #include "thread/coroutine.h"
 #include "user/loop.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "device/watch.h"
 #include "guard/secure.h"
+#include "syscall/guarded_semaphore.h"
 
 
 CGA_Stream kout;
@@ -24,7 +25,7 @@ PIC pic;
 Plugbox plugbox;
 Panic panic;
 Guard guard;
-Guarded_Scheduler schedule;
+Guarded_Organizer schedule;
 Application app;
 Loop loop;
 
