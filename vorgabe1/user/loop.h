@@ -23,7 +23,7 @@ private:
     char stack[8192];
 
 public:
-    Loop():Loop(&stack[2048]){};
+    Loop():Loop(&stack[8192]){};
 
     Loop(void* tos):Thread(tos){};
 

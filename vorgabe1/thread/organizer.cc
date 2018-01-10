@@ -14,7 +14,7 @@
 void Organizer::block(Customer& customer, Waitingroom& waitingroom){
 	customer.waiting_in(&waitingroom);
 	waitingroom.enqueue(&customer);
-	schedule();
+	exit();
 
 }
 

@@ -16,18 +16,22 @@
 #include "machine/key.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "meeting/semaphore.h"
  
 class Keyboard : public Gate, public Keyboard_Controller    
 {        
 private:
       Keyboard (const Keyboard &copy); // Verhindere Kopieren
-      char character;
+      Key keyHit;
+      Key key;
+      Semaphore buffer;
          
 public:
-      Keyboard(){}
+      Keyboard():buffer(0){}
  
       // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
       void plugin ();
+      Key getkey();
 
       bool prologue ();
       void epilogue ();

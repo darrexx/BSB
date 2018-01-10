@@ -10,4 +10,31 @@
 /*****************************************************************************/
 
 /* INCLUDES */
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/buzzer.h"
+#include "meeting/bellringer.h"
+#include "syscall/guarded_organizer.h"
+
+
+Buzzer::Buzzer(){
+
+}
+
+virtual Buzzer::~Buzzer(){
+	bellringer.cancel(this);
+}
+
+virtual void Buzzer::ring(){
+	Thread* thread = static_cast<Thread*>(dequeue());
+	while(thread != 0){
+		schedule.wakeup(*thread);
+		thread = static_cast<Thread*>(dequeue());
+	}
+}
+
+void Buzzer::set(int ms){
+	bellringer.job(this,ms);
+}
+
+void Buzzer::sleep(){
+	//TODO
+}

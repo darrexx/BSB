@@ -11,6 +11,7 @@
 #include "device/keyboard.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
+#include "machine/cgascr.h"
 
 void Keyboard::plugin(){
     plugbox.assign(Plugbox::KEYBOARD, *this);
@@ -32,9 +33,8 @@ void Keyboard::plugin(){
 
 bool Keyboard::prologue ()
 {
-  	Key key = key_hit();
+  	key = key_hit();
   	if(key.valid()){
-  	   		character = key.ascii();
 
   	   		unsigned char a = key.scancode();
   	    	if(a==Key::scan::del&&(key.ctrl_left()&&key.alt_left())){
@@ -47,6 +47,12 @@ bool Keyboard::prologue ()
 
 void Keyboard::epilogue ()
 {
-   	kout.setpos(40, 24);
-   	kout<< character;
+	keyHit = key;
+	buffer.signal();
+}
+
+Key Keyboard::getkey(){
+	buffer.wait();
+	key.invalidate();
+	return keyHit;
 }

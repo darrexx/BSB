@@ -8,7 +8,6 @@
 #include "machine/plugbox.h"
 #include "machine/pic.h"
 #include "device/panic.h"
-#include "device/keyboard.h"
 #include "user/appl.h"
 #include "guard/guard.h"
 #include "thread/coroutine.h"
@@ -17,6 +16,8 @@
 #include "device/watch.h"
 #include "guard/secure.h"
 #include "syscall/guarded_semaphore.h"
+#include "syscall/guarded_keyboard.h"
+#include "meeting/bellringer.h"
 
 
 CGA_Stream kout;
@@ -28,12 +29,13 @@ Guard guard;
 Guarded_Organizer schedule;
 Application app;
 Loop loop;
+Guarded_Keyboard board;
+Bellringer bellringer;
 
         
 int main()
 {
 	Secure secure;
-	Keyboard board;
 	board.plugin();
 	Watch watch(20000);
 	watch.windup();

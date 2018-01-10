@@ -17,17 +17,17 @@ Semaphore::Semaphore(int c):counter(c){
 }
 
 void Semaphore::p(){
-	if(counter>=0){
+	if(counter>0){
 		--counter;
 	}else{
-		schedule.block(static_cast<Customer&>(*schedule.active()), *this);
+		schedule.Organizer::block(static_cast<Customer&>(*schedule.active()), *this);
 	}
 }
 
 void Semaphore::v(){
 	Customer* c = static_cast<Customer*>(dequeue());
 	if(c!=0){
-		schedule.wakeup(*c);
+		schedule.Organizer::wakeup(*c);
 	}else{
 		++counter;
 	}

@@ -16,6 +16,7 @@
 #include "guard/secure.h"
 #include "user/loop.h"
 #include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_keyboard.h"
          
 /* GLOBALE VARIABLEN */
 
@@ -24,10 +25,11 @@ void Application::action ()
  {
 	int i=0;
 	while(1){
+		char c = board.getkey().ascii();
 		{
 		Secure secure;
 		kout.setpos(30,0);
-		kout<<"Dies ist eine Ausgabe!!! Counter: "<<i;
+		kout<<"Dies ist eine Ausgabe!!! Key: "<<c<<i;
 		}
 		i ++;
 //		schedule.resume();

@@ -21,7 +21,7 @@ private:
     char stack[8192];
 
 public:
-    Application():Application(&stack[2048]){};
+    Application():Application(&stack[8192]){};
 
     Application(void* tos):Thread(tos){};
           

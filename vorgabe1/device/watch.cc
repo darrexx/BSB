@@ -12,6 +12,7 @@
 #include "machine/plugbox.h"
 #include "machine/pic.h"
 #include "syscall/guarded_scheduler.h"
+#include "meeting/bellringer.h"
 
 void Watch::windup (){
     plugbox.assign(Plugbox::TIMER, *this);
@@ -21,8 +22,9 @@ void Watch::windup (){
 bool Watch::prologue (){
 	return true;
 }
-//TODO test mit ausgabe statt schedule
+
 void Watch::epilogue (){
+	bellringer.check();
 	schedule.Scheduler::resume();
 //	kout.setpos(0, 10);
 //	kout<<i;
