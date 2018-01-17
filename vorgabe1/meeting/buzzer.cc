@@ -19,11 +19,11 @@ Buzzer::Buzzer(){
 
 }
 
-virtual Buzzer::~Buzzer(){
+Buzzer::~Buzzer(){
 	bellringer.cancel(this);
 }
 
-virtual void Buzzer::ring(){
+void Buzzer::ring(){
 	Thread* thread = static_cast<Thread*>(dequeue());
 	while(thread != 0){
 		schedule.wakeup(*thread);
@@ -32,9 +32,11 @@ virtual void Buzzer::ring(){
 }
 
 void Buzzer::set(int ms){
-	bellringer.job(this,ms);
+	time = ms;
 }
 
 void Buzzer::sleep(){
-	//TODO
+	bellringer.job(this,time);
+	Thread* thread = static_cast<Thread*>(schedule.active());
+	schedule.block(*thread, *this);
 }

@@ -18,6 +18,7 @@
 #include "syscall/guarded_semaphore.h"
 #include "syscall/guarded_keyboard.h"
 #include "meeting/bellringer.h"
+#include "thread/idle.h"
 
 
 CGA_Stream kout;
@@ -31,19 +32,21 @@ Application app;
 Loop loop;
 Guarded_Keyboard board;
 Bellringer bellringer;
+Idle idle;
 
         
 int main()
 {
 	Secure secure;
 	board.plugin();
-	Watch watch(20000);
+	Watch watch(1000);
 	watch.windup();
 	kout.clear();
 	cpu.enable_int();
 	kout.setpos(0, 0);
 	schedule.Scheduler::ready(app);
 	schedule.Scheduler::ready(loop);
+	schedule.Scheduler::ready(idle);
 	schedule.schedule();
 
 

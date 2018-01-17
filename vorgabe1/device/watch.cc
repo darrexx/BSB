@@ -11,7 +11,7 @@
 #include "device/watch.h"
 #include "machine/plugbox.h"
 #include "machine/pic.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "meeting/bellringer.h"
 
 void Watch::windup (){
@@ -24,10 +24,11 @@ bool Watch::prologue (){
 }
 
 void Watch::epilogue (){
+	if(i%20){
+		schedule.Scheduler::resume();
+		i=0;
+	}
 	bellringer.check();
-	schedule.Scheduler::resume();
-//	kout.setpos(0, 10);
-//	kout<<i;
-//	i++;
+	++i;
 }
 

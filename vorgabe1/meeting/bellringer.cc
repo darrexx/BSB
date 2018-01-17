@@ -19,7 +19,7 @@ void Bellringer::check(){
 	if(bell==0){return;}
 
 	bell->tick();
-	while(bell->run_down() && bell != 0){
+	while(bell != 0 && bell->run_down()){
 		remove(bell);
 		bell->ring();
 		bell = static_cast<Bell*>(head);

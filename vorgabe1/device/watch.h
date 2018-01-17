@@ -19,7 +19,7 @@ class Watch : public Gate, public PIT
  {
 private:
     Watch (const Watch &copy); // Verhindere Kopieren
-//    int i;
+    int i;
 public:
     // WATCH: Initialisiert die Uhr.
     Watch (int us) : PIT (us)

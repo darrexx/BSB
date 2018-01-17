@@ -15,7 +15,7 @@
 #include "machine/cpu.h"
 #include "guard/secure.h"
 #include "user/loop.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "syscall/guarded_keyboard.h"
          
 /* GLOBALE VARIABLEN */
@@ -30,6 +30,9 @@ void Application::action ()
 		Secure secure;
 		kout.setpos(30,0);
 		kout<<"Dies ist eine Ausgabe!!! Key: "<<c<<i;
+		if(i==10){
+			schedule.Scheduler::kill(loop);
+		}
 		}
 		i ++;
 //		schedule.resume();

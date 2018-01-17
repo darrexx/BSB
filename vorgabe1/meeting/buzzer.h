@@ -19,6 +19,7 @@ class Buzzer:public Waitingroom, public Bell
 {
 private:
     Buzzer(const Buzzer &copy); // Verhindere Kopieren
+    long time;
 public:
     Buzzer();
     virtual ~Buzzer();

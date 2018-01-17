@@ -26,7 +26,7 @@ public:
     void wait(int value){counter = value;}
     int wait(){return counter;}
     void tick(){--counter;}
-    bool run_down(){return counter == 0;}
+    bool run_down(){return counter <= 0;}
     virtual void ring()=0;
 
 };

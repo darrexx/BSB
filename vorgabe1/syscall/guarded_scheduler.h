@@ -26,6 +26,4 @@ public:
       void resume();
  };
 
-extern Guarded_Scheduler schedule;
-
 #endif

@@ -15,8 +15,9 @@
 #include "device/cgastr.h"
 #include "machine/cpu.h"
 #include "guard/secure.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "user/appl.h"
+#include "syscall/guarded_buzzer.h"
  
 void Loop::action ()
  {
@@ -28,6 +29,11 @@ void Loop::action ()
 		kout<<"Dies ist Ausgabe Nr2!!! Counter: "<<i;
 		}
 		i++;
+		if(i%1000==0){
+			Guarded_Buzzer b;
+			b.set(1000);
+			b.sleep();
+		}
 //		schedule.resume();
 
 	}
