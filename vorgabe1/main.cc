@@ -12,6 +12,7 @@
 #include "guard/guard.h"
 #include "thread/coroutine.h"
 #include "user/loop.h"
+#include "user/loop2.h"
 #include "syscall/guarded_organizer.h"
 #include "device/watch.h"
 #include "guard/secure.h"
@@ -30,9 +31,11 @@ Guard guard;
 Guarded_Organizer schedule;
 Application app;
 Loop loop;
+Loop2 loop2;
 Guarded_Keyboard board;
 Bellringer bellringer;
 Idle idle;
+Guarded_Semaphore kout_guard(1);
 
         
 int main()
@@ -45,7 +48,8 @@ int main()
 	cpu.enable_int();
 	kout.setpos(0, 0);
 	schedule.Scheduler::ready(app);
-	schedule.Scheduler::ready(loop);
+//	schedule.Scheduler::ready(loop);
+//	schedule.Scheduler::ready(loop2);
 	schedule.Scheduler::ready(idle);
 	schedule.schedule();
 

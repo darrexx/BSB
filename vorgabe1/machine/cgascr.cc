@@ -118,6 +118,7 @@ void CGA_Screen::clear(){
 	for(int i=0;i<=24;i++){
 		clearLine(i);
 	}
+	setpos(0,0);
 }
 
 void CGA_Screen::bluescreen(char* text){

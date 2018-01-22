@@ -2,36 +2,33 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                                 L O O P                                   */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Loop ist ein Thread, der nichts weiter tut als einen Zaehler hochzu-      */
+/* zaehlen und dies auf dem Bildschirm anzuzeigen. Zwischendurch gibt er     */
+/* den Prozessor ab.                                                         */
 /*****************************************************************************/
 
-#ifndef __application_include__
-#define __application_include__
+#ifndef __loop2_include__
+#define __loop2_include__
 
 #include "syscall/thread.h"
 
-class Application : public Thread
- 
+class Loop2 : public Thread
+
  {
 private:
-    Application (const Application &copy); // Verhindere Kopieren
+    Loop2 (const Loop2 &copy); // Verhindere Kopieren
     char stack[8192];
-    char buffer[4000];
-	int counter=0;
-    void printNotFoundCommand();
-    void checkKnownCommands();
 
 public:
-    Application():Application(&stack[8192]){};
+    Loop2():Loop2(&stack[8192]){};
 
-    Application(void* tos):Thread(tos){};
-          
+    Loop2(void* tos):Thread(tos){};
+
     void action ();
  };
-
-extern Application	app;
+extern Loop2 loop2;
 
 #endif

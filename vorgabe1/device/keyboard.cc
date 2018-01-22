@@ -53,6 +53,5 @@ void Keyboard::epilogue ()
 
 Key Keyboard::getkey(){
 	buffer.wait();
-	key.invalidate();
 	return keyHit;
 }

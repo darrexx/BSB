@@ -28,25 +28,33 @@ void Bellringer::check(){
 
 void Bellringer::job(Bell *bell,int ticks){
 	Bell* other = static_cast<Bell*>(head);
-	Bell* prev =0;
+	Bell* prev = 0;
 
 	while(other != 0 && other->wait()<ticks){
 		ticks -= other->wait();
 		prev = other;
 		other= static_cast<Bell*>(other->next);
 	}
-	insert_after(prev, bell);
 
-	while(other != 0){
+	if(prev == 0){
+		insert_first(bell);
+	}else{
+		insert_after(prev, bell);
+	}
+
+	if(other != 0){
 		other->wait(other->wait()-ticks);
 		other = static_cast<Bell*>(other->next);
 	}
 
 	bell->wait(ticks);
-	enqueue(bell);
 }
 
 void Bellringer::cancel(Bell *bell){
+	Bell* next = static_cast<Bell*>(bell->next);
+	if(next != 0){
+		next->wait(next->wait() + bell->wait());
+	}
 	remove(bell);
 }
 

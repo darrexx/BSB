@@ -29,4 +29,6 @@ public:
     }
  };
 
+extern Guarded_Semaphore kout_guard;
+
 #endif
