@@ -13,6 +13,7 @@
 #include "meeting/buzzer.h"
 #include "meeting/bellringer.h"
 #include "syscall/guarded_organizer.h"
+#include "machine/cpu.h"
 
 
 Buzzer::Buzzer(){

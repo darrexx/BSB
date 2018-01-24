@@ -12,7 +12,6 @@
 #include "guard/guard.h"
 #include "thread/coroutine.h"
 #include "user/loop.h"
-#include "user/loop2.h"
 #include "syscall/guarded_organizer.h"
 #include "device/watch.h"
 #include "guard/secure.h"
@@ -20,6 +19,7 @@
 #include "syscall/guarded_keyboard.h"
 #include "meeting/bellringer.h"
 #include "thread/idle.h"
+#include "user/bomberman.h"
 
 
 CGA_Stream kout;
@@ -31,11 +31,11 @@ Guard guard;
 Guarded_Organizer schedule;
 Application app;
 Loop loop;
-Loop2 loop2;
 Guarded_Keyboard board;
 Bellringer bellringer;
 Idle idle;
 Guarded_Semaphore kout_guard(1);
+Guarded_Semaphore bomb_signal(0);
 
         
 int main()

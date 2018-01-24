@@ -10,25 +10,30 @@
 /* den Prozessor ab.                                                         */
 /*****************************************************************************/
 
-#ifndef __loop2_include__
-#define __loop2_include__
+#ifndef __bomberman_include__
+#define __bomberman_include__
 
 #include "syscall/thread.h"
+#include "syscall/guarded_semaphore.h"
 
-class Loop2 : public Thread
+class Bomberman : public Thread
 
  {
 private:
-    Loop2 (const Loop2 &copy); // Verhindere Kopieren
-    char stack[8192];
+    Bomberman (const Bomberman &copy); // Verhindere Kopieren
+    char stack[90000];
+    char field[78][23];
+    enum { destructable = 177, indestructable = 178, player = 64 };
+	short player_x;
+	short player_y;
+	void initializeField();
+	void showField();
 
 public:
-    Loop2():Loop2(&stack[8192]){};
-
-    Loop2(void* tos):Thread(tos){};
-
+    Bomberman():Bomberman(&stack[90000]){}
+    Bomberman(void* tos):Thread(tos){};
+    void explodeBomb(short x, short y);
     void action ();
  };
-extern Loop2 loop2;
 
 #endif

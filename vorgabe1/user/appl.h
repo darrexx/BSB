@@ -18,14 +18,14 @@ class Application : public Thread
  {
 private:
     Application (const Application &copy); // Verhindere Kopieren
-    char stack[8192];
-    char buffer[4000];
+    char stack[100000];
+    char buffer[400];
 	int counter=0;
     void printNotFoundCommand();
     void checkKnownCommands();
 
 public:
-    Application():Application(&stack[8192]){};
+    Application():Application(&stack[100000]){};
 
     Application(void* tos):Thread(tos){};
           

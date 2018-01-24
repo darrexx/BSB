@@ -30,5 +30,6 @@ public:
  };
 
 extern Guarded_Semaphore kout_guard;
+extern Guarded_Semaphore bomb_signal;
 
 #endif

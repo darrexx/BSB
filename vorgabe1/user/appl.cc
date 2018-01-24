@@ -16,6 +16,7 @@
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_semaphore.h"
+#include "user/bomberman.h"
          
 /* GLOBALE VARIABLEN */
 
@@ -33,18 +34,20 @@ void Application::action ()
 			char c = k.ascii();
 
 			if(c =='\b'){
-				int x;
-				int y;
-				kout.getpos(x,y);
+				if(counter>0){
+					int x;
+					int y;
+					kout.getpos(x,y);
 
-				kout_guard.wait();
-				kout.setpos(x-1,y);
-				kout<<' ';
-				kout.setpos(x-1,y);
-				kout_guard.signal();
+					kout_guard.wait();
+					kout.setpos(x-1,y);
+					kout<<' ';
+					kout.setpos(x-1,y);
+					kout_guard.signal();
 
-				--counter;
-				buffer[counter] = ' ';
+					--counter;
+					buffer[counter] = ' ';
+				}
 
 			}else if(c == '\n'){
 
@@ -98,19 +101,23 @@ void Application::checkKnownCommands()
 {
 	if(counter == 4 && buffer[0] == 'h' && buffer[1] == 'e' && buffer[2] == 'l' && buffer[3] == 'p'){
 		kout_guard.wait();
-		kout<<	"help                  --zeigt verf\ügbare Befehle"<<endl<<
-				"clear                 --leert den Bildschirm"<<endl<<
-				"bomberman             --startet Bomberman";
+		kout<<	"help                  --shows available commands"<<endl<<
+				"clear                 --clears the screen"<<endl<<
+				"bomberman             --starts the \"Bomberman\" game";
 		kout_guard.signal();
 	}else if(counter == 5 && buffer[0] == 'c' && buffer[1] == 'l' && buffer[2] == 'e' && buffer[3] == 'a'&& buffer[4] == 'r'){
 		kout_guard.wait();
 		kout.clear();
 		kout<<">";
 		kout_guard.signal();
-	} if(counter == 9 && buffer[0] == 'b' && buffer[1] == 'o' && buffer[2] == 'm' && buffer[3] == 'b' && buffer[4] == 'e' && buffer[5] == 'r' && buffer[6] == 'm' && buffer[7] == 'a' && buffer[8] == 'n'){
+	}else if(counter == 9 && buffer[0] == 'b' && buffer[1] == 'o' && buffer[2] == 'm' && buffer[3] == 'b' && buffer[4] == 'e' && buffer[5] == 'r' && buffer[6] == 'm' && buffer[7] == 'a' && buffer[8] == 'n'){
 		kout_guard.wait();
 		kout<<"starting Bomberman ...";
 		kout_guard.signal();
+		Bomberman bomb;
+		schedule.ready(bomb);
+		schedule.exit();
+		schedule.resume();
 	}else{
 		printNotFoundCommand();
 	}
