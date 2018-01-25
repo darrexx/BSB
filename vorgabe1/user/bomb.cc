@@ -10,6 +10,7 @@
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
 #include "machine/cpu.h"
+#include "device/cgastr.h"
 
 void Bomb::action(){
 
@@ -26,4 +27,9 @@ void Bomb::action(){
 void Bomb::setPos(short x,short y){
 	bomb_x = x;
 	bomb_y = y;
+}
+
+void Bomb::getPos(short &x, short &y){
+	x = bomb_x;
+	y = bomb_y;
 }

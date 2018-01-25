@@ -24,39 +24,66 @@ void Bomberman::action ()
 
 	while(1){
 		char c = board.getkey().ascii();
+
 		switch(c){
 			case 'w':
 				if(field[player_x][player_y-1] == ' '){
-					field[player_x][player_y] = ' ';
+					if(bombField[player_x][player_y]){
+						field[player_x][player_y] = bomb;
+					}else{
+						field[player_x][player_y] = ' ';
+					}
 					--player_y;
 					field[player_x][player_y] = player;
 				}
 				break;
+
 			case 'a':
 				if(field[player_x-1][player_y] == ' '){
-					field[player_x][player_y] = ' ';
+					if(bombField[player_x][player_y]){
+						field[player_x][player_y] = bomb;
+					}else{
+						field[player_x][player_y] = ' ';
+					}
 					--player_x;
 					field[player_x][player_y] = player;
 				}
 				break;
+
 			case 's':
 				if(field[player_x][player_y+1] == ' '){
-					field[player_x][player_y] = ' ';
+					if(bombField[player_x][player_y]){
+						field[player_x][player_y] = bomb;
+					}else{
+						field[player_x][player_y] = ' ';
+					}
 					++player_y;
 					field[player_x][player_y] = player;
 				}
 				break;
+
 			case 'd':
 				if(field[player_x+1][player_y] == ' '){
-					field[player_x][player_y] = ' ';
+					if(bombField[player_x][player_y]){
+						field[player_x][player_y] = bomb;
+					}else{
+						field[player_x][player_y] = ' ';
+					}
 					++player_x;
 					field[player_x][player_y] = player;
 				}
 				break;
+
 			case '\n':
-				Bomb bomb(this);
-				bomb.setPos(player_x, player_y);
-				schedule.ready(bomb);
+				if(!bombField[player_x][player_y]){
+					bombField[player_x][player_y] = true;
+					//TODO nur die zuletzt gesetzte Bombe explodiert
+					Bomb bomb(this);
+					bomb.setPos(player_x, player_y);
+					field[player_x][player_y] = ' ';
+					schedule.ready(bomb);
+				}
+				break;
 		}
 
 		showField();
@@ -71,6 +98,7 @@ void Bomberman::initializeField(){
 
 	for(int i = 0; i < 78; ++i){
 		for(int j = 0; j < 23; ++j){
+			bombField[i][j] = false;
 			if(i == 0 || i == 77 || j == 0 || j == 22){
 				field[i][j] = indestructable;
 			}else{
@@ -110,16 +138,42 @@ void Bomberman::showField(){
 }
 
 void Bomberman::explodeBomb(short x,short y){
-	if(field[x+1][y] == destructable){
+	bombField[x][y] = false;
+	field[x][y] = ' ';
+
+	if(field[x][y] == char(player)){
+		gameOver();
+	}else if(field[x+1][y] == char(player)){
+		gameOver();
+	}else if(field[x-1][y] == char(player)){
+		gameOver();
+	}else if(field[x][y+1] == char(player)){
+		gameOver();
+	}else if(field[x][y-1] == char(player)){
+		gameOver();
+	}
+
+
+
+	if(field[x+1][y] == char(destructable)){
 		field[x+1][y] = ' ';
+		showField();
 	}
-	if(field[x-1][y] == destructable){
+	if(field[x-1][y] == char(destructable)){
 		field[x-1][y] = ' ';
+		showField();
 	}
-	if(field[x][y+1] == destructable){
+	if(field[x][y+1] == char(destructable)){
 		field[x][y+1] = ' ';
+		showField();
 	}
-	if(field[x][y-1] == destructable){
+	if(field[x][y-1] == char(destructable)){
 		field[x][y-1] = ' ';
+		showField();
 	}
+}
+
+void Bomberman::gameOver(){
+	//TODO
+	kout<<"Game Over";
 }

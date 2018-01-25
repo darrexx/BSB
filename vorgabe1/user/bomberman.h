@@ -23,11 +23,13 @@ private:
     Bomberman (const Bomberman &copy); // Verhindere Kopieren
     char stack[90000];
     char field[78][23];
-    enum { destructable = 177, indestructable = 178, player = 64 };
+    bool bombField[78][23];
+    enum { destructable = 177, indestructable = 178, player = 64, bomb = 235};
 	short player_x;
 	short player_y;
 	void initializeField();
 	void showField();
+	void gameOver();
 
 public:
     Bomberman():Bomberman(&stack[90000]){}

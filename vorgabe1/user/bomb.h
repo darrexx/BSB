@@ -26,6 +26,7 @@ public:
 
     void action ();
     void setPos(short x, short y);
+    void getPos(short &x, short &y);
 
 };
 
