@@ -15,12 +15,12 @@ class Bomb: public Thread {
 private:
     Bomb (const Bomb &copy); // Verhindere Kopieren
     Bomb(void* tos):Thread(tos){};
-    char stack[64];
+    char stack[2048];
     short bomb_x,bomb_y;
     Bomberman* parent;
 
 public:
-    Bomb(Bomberman* parent):Bomb(&stack[64]){
+    Bomb(Bomberman* parent):Bomb(&stack[2048]){
     	this->parent = parent;
     }
 

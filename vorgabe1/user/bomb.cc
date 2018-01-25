@@ -17,9 +17,9 @@ void Bomb::action(){
 	b.set(5000);
 
 	while(1){
-		bomb_signal.wait();
 		b.sleep();
 		parent->explodeBomb(bomb_x, bomb_y);
+		schedule.exit();
 	}
 }
 

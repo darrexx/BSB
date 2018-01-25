@@ -21,8 +21,6 @@ void Bomberman::action ()
  {
 	initializeField();
 	showField();
-	Bomb bomb(this);
-	schedule.ready(bomb);
 
 	while(1){
 		char c = board.getkey().ascii();
@@ -56,8 +54,9 @@ void Bomberman::action ()
 				}
 				break;
 			case '\n':
+				Bomb bomb(this);
 				bomb.setPos(player_x, player_y);
-				bomb_signal.signal();
+				schedule.ready(bomb);
 		}
 
 		showField();
