@@ -22,17 +22,24 @@ class Bomberman : public Thread
 private:
     Bomberman (const Bomberman &copy); // Verhindere Kopieren
     char stack[90000];
-    char field[78][23];
-    bool bombField[78][23];
+    char field[40][12];
+    bool bombField[40][12];
     enum { destructable = 177, indestructable = 178, player = 64, bomb = 235};
 	short player_x;
 	short player_y;
-	void initializeField();
+	bool gameOverFlag;
+	long score;
+	Thread* parent;
+	void startScreen();
+	void initializeGame();
 	void showField();
 	void gameOver();
+	void updateScore(int change);
 
 public:
-    Bomberman():Bomberman(&stack[90000]){}
+    Bomberman(Thread* parent):Bomberman(&stack[90000]){
+    	this->parent = parent;
+    }
     Bomberman(void* tos):Thread(tos){};
     void explodeBomb(short x, short y);
     void action ();

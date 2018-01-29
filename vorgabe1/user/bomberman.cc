@@ -19,11 +19,25 @@
 
 void Bomberman::action ()
  {
-	initializeField();
-	showField();
+	Bomb bomb_0(this);
+	Bomb bomb_1(this);
+	Bomb bomb_2(this);
+	Bomb bomb_3(this);
+	Bomb bomb_4(this);
+	startScreen();
+	initializeGame();
+
+	//TODO make it more likely for player to game over
+	//TODO add multiple stages
 
 	while(1){
 		char c = board.getkey().ascii();
+
+		if(gameOverFlag){
+			c = ' ';
+			startScreen();
+			initializeGame();
+		}
 
 		switch(c){
 			case 'w':
@@ -76,12 +90,29 @@ void Bomberman::action ()
 
 			case '\n':
 				if(!bombField[player_x][player_y]){
-					bombField[player_x][player_y] = true;
-					//TODO nur die zuletzt gesetzte Bombe explodiert
-					Bomb bomb(this);
-					bomb.setPos(player_x, player_y);
-					field[player_x][player_y] = ' ';
-					schedule.ready(bomb);
+
+					//TODO find a better way to have multiple bombs
+					if(!bomb_0.isActive){
+						bombField[player_x][player_y] = true;
+						bomb_0.setPos(player_x, player_y);
+						schedule.ready(bomb_0);
+					}else if(!bomb_1.isActive){
+						bombField[player_x][player_y] = true;
+						bomb_1.setPos(player_x, player_y);
+						schedule.ready(bomb_1);
+					}else if(!bomb_2.isActive){
+						bombField[player_x][player_y] = true;
+						bomb_2.setPos(player_x, player_y);
+						schedule.ready(bomb_2);
+					}else if(!bomb_3.isActive){
+						bombField[player_x][player_y] = true;
+						bomb_3.setPos(player_x, player_y);
+						schedule.ready(bomb_3);
+					}else if(!bomb_4.isActive){
+						bombField[player_x][player_y] = true;
+						bomb_4.setPos(player_x, player_y);
+						schedule.ready(bomb_4);
+					}
 				}
 				break;
 		}
@@ -90,22 +121,23 @@ void Bomberman::action ()
 	}
 }
 
-void Bomberman::initializeField(){
+void Bomberman::initializeGame(){
 	Random rand(500);
-	player_x = 40;
-	player_y = 12;
+	score = 0;
+	player_x = 20;
+	player_y = 6;
 
 
-	for(int i = 0; i < 78; ++i){
-		for(int j = 0; j < 23; ++j){
+	for(int i = 0; i < 40; ++i){
+		for(int j = 0; j < 12; ++j){
 			bombField[i][j] = false;
-			if(i == 0 || i == 77 || j == 0 || j == 22){
+			if(i == 0 || i == 39 || j == 0 || j == 11){
 				field[i][j] = indestructable;
 			}else{
 				int number = rand.number() % 10;
-				if(number < 6){
+				if(number < 4){
 					field[i][j] = destructable;
-				}else if(number >= 6 && number <= 8){
+				}else if(number >= 4 && number <= 8){
 					field[i][j] = ' ';
 				}else{
 					field[i][j] = indestructable;
@@ -113,67 +145,145 @@ void Bomberman::initializeField(){
 			}
 		}
 	}
-	field[39][11] = indestructable;
-	field[39][12] = ' ';
-	field[39][13] = indestructable;
-	field[40][11] = ' ';
-	field[40][12] = player;
-	field[40][13] = ' ';
-	field[41][11] = indestructable;
-	field[41][12] = ' ';
-	field[41][13] = indestructable;
+	field[player_x-1][player_y-1] = indestructable;
+	field[player_x-1][player_y] = ' ';
+	field[player_x-1][player_y+1] = indestructable;
+	field[player_x][player_y-1] = ' ';
+	field[player_x][player_y] = player;
+	field[player_x][player_y+1] = ' ';
+	field[player_x+1][player_y-1] = indestructable;
+	field[player_x+1][player_y] = ' ';
+	field[player_x+1][player_y+1] = indestructable;
 
+	showField();
 };
 
 void Bomberman::showField(){
-	kout.setpos(0,0);
-	for(int j = 0; j < 23; ++j){
-		for(int i=0; i<78; ++i){
+	kout.clear();
+	kout.setpos(20,6);
+	for(int j = 0; j < 12; ++j){
+		for(int i=0; i<40; ++i){
 			kout<<field[i][j];
-			if(i == 77){
-				kout<<endl;
+			if(i == 39){
+				int x,y;
+				kout.getpos(x,y);
+				kout.setpos(20,y+1);
 			}
 		}
 	}
+	updateScore(0);
 }
 
 void Bomberman::explodeBomb(short x,short y){
 	bombField[x][y] = false;
-	field[x][y] = ' ';
 
 	if(field[x][y] == char(player)){
+		gameOverFlag=true;
 		gameOver();
 	}else if(field[x+1][y] == char(player)){
+		gameOverFlag=true;
 		gameOver();
 	}else if(field[x-1][y] == char(player)){
+		gameOverFlag=true;
 		gameOver();
 	}else if(field[x][y+1] == char(player)){
+		gameOverFlag=true;
 		gameOver();
 	}else if(field[x][y-1] == char(player)){
+		gameOverFlag=true;
 		gameOver();
-	}
+	}else{
 
 
+		if(field[x+1][y] == char(destructable)){
+			field[x+1][y] = ' ';
+			updateScore(5);
+		}else{
+			updateScore(-1);
+		}
+		if(field[x-1][y] == char(destructable)){
+			field[x-1][y] = ' ';
+			updateScore(5);
+		}else{
+			updateScore(-1);
+		}
+		if(field[x][y+1] == char(destructable)){
+			field[x][y+1] = ' ';
+			updateScore(5);
+		}else{
+			updateScore(-1);
+		}
+		if(field[x][y-1] == char(destructable)){
+			field[x][y-1] = ' ';
+			updateScore(5);
+		}else{
+			updateScore(-1);
+		}
 
-	if(field[x+1][y] == char(destructable)){
-		field[x+1][y] = ' ';
-		showField();
-	}
-	if(field[x-1][y] == char(destructable)){
-		field[x-1][y] = ' ';
-		showField();
-	}
-	if(field[x][y+1] == char(destructable)){
-		field[x][y+1] = ' ';
-		showField();
-	}
-	if(field[x][y-1] == char(destructable)){
-		field[x][y-1] = ' ';
+		field[x][y] = ' ';
 		showField();
 	}
 }
 
 void Bomberman::gameOver(){
-	//TODO
+	kout.clear();
+	kout.setpos(35,11);
 	kout<<"Game Over";
+	kout.setpos(35,13);
+	kout<<"score: "<<score;
+	kout.setpos(20,15);
+	kout<<"Press any key to return to the main menu.";
 }
+
+void Bomberman::startScreen(){
+	gameOverFlag = false;
+	kout.clear();
+
+	kout.setpos(36, 0);
+	kout<<"Bomberman";
+
+	kout.setpos(20,5);
+	kout<<"Move with: 'w','a','s','d'.";
+	kout.setpos(20,6);
+	kout<<"Place up to 5 bombs with: 'Enter.";
+	kout.setpos(20,7);
+	kout<<"Bombs have a 5 second timer before they explode.";
+
+
+	kout.setpos(20,10);
+	kout<<"you:                      "<<char(player);
+	kout.setpos(20,11);
+	kout<<"bombs:                    "<<char(bomb);
+	kout.setpos(20,12);
+	kout<<"indestructable walls:     "<<char(indestructable);
+	kout.setpos(20,13);
+	kout<<"destructable walls:       "<<char(destructable);
+
+
+	kout.setpos(20,17);
+	kout<<"Press 'Enter' to start.";
+	kout.setpos(20,18);
+	kout<<"Press 'Backspace' to exit.";
+
+	char c = board.getkey().ascii();
+	switch(c){
+		case '\n':
+			initializeGame();
+			break;
+		case '\b':
+			kout.clear();
+			schedule.ready(*parent);
+			schedule.exit();
+			break;
+		default:
+			startScreen();
+	}
+}
+
+void Bomberman::updateScore(int change){
+	//TODO fix position bug
+	score +=change;
+	kout.setpos(20,5);
+	kout<<"Score:"<<score;
+}
+

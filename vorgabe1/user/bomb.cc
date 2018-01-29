@@ -18,8 +18,10 @@ void Bomb::action(){
 	b.set(5000);
 
 	while(1){
+		isActive = true;
 		b.sleep();
 		parent->explodeBomb(bomb_x, bomb_y);
+		isActive = false;
 		schedule.exit();
 	}
 }

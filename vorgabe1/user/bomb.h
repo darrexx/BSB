@@ -11,6 +11,7 @@
 #include "syscall/thread.h"
 #include "user/bomberman.h"
 
+
 class Bomb: public Thread {
 private:
     Bomb (const Bomb &copy); // Verhindere Kopieren
@@ -22,11 +23,13 @@ private:
 public:
     Bomb(Bomberman* parent):Bomb(&stack[2048]){
     	this->parent = parent;
+    	isActive = false;
     }
 
     void action ();
     void setPos(short x, short y);
     void getPos(short &x, short &y);
+    bool isActive;
 
 };
 
