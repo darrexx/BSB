@@ -10,12 +10,11 @@
 #include "syscall/guarded_organizer.h"
 #include "syscall/guarded_semaphore.h"
 #include "machine/cpu.h"
-#include "device/cgastr.h"
 
 void Bomb::action(){
 
 	Guarded_Buzzer b;
-	b.set(5000);
+	b.set(2500);
 
 	while(1){
 		isActive = true;

@@ -30,6 +30,7 @@ public:
     void setPos(short x, short y);
     void getPos(short &x, short &y);
     bool isActive;
+    bool isPlayer1;
 
 };
 

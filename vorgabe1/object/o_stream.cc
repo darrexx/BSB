@@ -22,6 +22,7 @@ O_Stream& O_Stream::operator<< (unsigned long number){
 
     if (number == 0){
         put('0');
+        flush();
         return *this;
     }
 

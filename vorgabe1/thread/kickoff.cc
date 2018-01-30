@@ -13,7 +13,6 @@
 /*****************************************************************************/
 
 #include "thread/kickoff.h"
-#include "device/cgastr.h"
 #include "guard/secure.h"
 
 void kickoff(Coroutine* object){
